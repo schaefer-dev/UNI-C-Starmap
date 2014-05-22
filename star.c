@@ -9,6 +9,7 @@ int star_read_from_file(struct star* s, FILE* f)
     double xcord, ycord, zcord, mag;
     int drapnr, hrn;
 	if (6==fscanf(f, "%lf %lf %lf %i %lf %i",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn)){
+        // ggf. abfangen wenn coordinaten >1
         s->x = xcord;
         s->y = ycord;
         s->magnitude = mag;
@@ -28,16 +29,16 @@ void star_coord_to_pixel(struct star const* s, struct image* const img, int* x, 
     int width = img->w;
     double mheight=(((double)height)-1)/2.0;
     double mwidth=(((double)width)-1)/2.0;
-
     *x =(int)((1.0+a)*mwidth);
-
     *y = (int)((1.0-b)*mheight);
-
-
 }
 
 void star_plot(struct star const* s, struct image* img)
 {
-	// TODO implement
-	abort();
+    int y=0;
+    int x=0;
+    star_coord_to_pixel(s,img,&x,&y);
+    int wide=(img->w);
+    int num=wide*y+x;
+    (img->data[num])=0xffffff;
 }
