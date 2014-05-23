@@ -13,7 +13,17 @@ void image_init(struct image* img, int w, int h)
 
 void image_draw_pixel(struct image* img, int color, int x, int y)
 {
-	abort(); // TODO implement
+    // abbrechen für >1 und <-1 und nicht zeichnen	
+    int wide = (img->w);
+    int hight = (img->h);
+    if (x<=wide) {        // hier ggf Ränder falsch
+        if (y<=hight){
+            int num = wide*y+x;
+            (img->data[num])=color;
+        }
+        else printf("y-koordinate %i > maximale Höhe %i", y, hight); // print weg?
+    }
+    else printf("x-koordinate %i > maximale Weite %i", x, wide); // print weg?
 }
 
 /*
@@ -57,5 +67,26 @@ void image_draw_line(struct image* img, int color, int x0, int y0, int x1, int y
 
 void image_write_to_file(struct image* img, FILE* f)
 {
-	abort(); // TODO implement
+    int wide = (img->w);
+    int hight= (img->h);
+    printf("wide %i, hight %i", wide, hight);
+    int cw=0;
+    int hw=0;
+    
+    fprintf(f,"P3\n%i %i\n255\n", wide, hight);
+    while (hw<=hight){
+        while (cw<=wide){
+            int rot=((img->data[hw*wide+cw])>>16);   // farbwerte aus 3er Hex ziehen
+            unsigned int help= (img->data[hw*wide+cw]<<16);
+            int grün = help >> 24;
+            help = (img->data[hw*wide+cw]<<24);
+            int blau = help >> 24;
+            //int grün=((unsigned int)((img->data[hw*wide+cw])<<8)>>24);
+            //int blau=((unsigned int)((img->data[hw*wide+cw])<<16)>>16);
+            fprintf (f,"%i %i %i ", rot,grün,blau);
+            cw++;
+        }
+        fprintf (f, "\n");
+        hw++;
+    }
 }

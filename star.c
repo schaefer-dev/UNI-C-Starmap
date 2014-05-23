@@ -38,7 +38,12 @@ void star_plot(struct star const* s, struct image* img)
     int y=0;
     int x=0;
     star_coord_to_pixel(s,img,&x,&y);
-    int wide=(img->w);
-    int num=wide*y+x;
-    (img->data[num])=0xffffff;
+    int wide=(img->w);                  // hier ggf. vergleichen mit wide+1/hight+1 überprüfen!!
+    int hight=(img->h);
+    if (y<=hight)
+        if (x<=wide)
+            {int num=wide*y+x;
+            (img->data[num])=0xffffff;}
+        else printf("x koordinate %i > maximale Weite %i", x, wide);
+    else printf("y koordinate %i > maximale Höhe %i", y, wide);
 }
