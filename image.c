@@ -69,13 +69,12 @@ void image_write_to_file(struct image* img, FILE* f)
 {
     int wide = (img->w);
     int hight= (img->h);
-    printf("wide %i, hight %i", wide, hight);
     int cw=0;
     int hw=0;
     
     fprintf(f,"P3\n%i %i\n255\n", wide, hight);
-    while (hw<=hight){
-        while (cw<=wide){
+    while (hw<hight){
+        while (cw<wide){
             int rot=((img->data[hw*wide+cw])>>16);   // farbwerte aus 3er Hex ziehen
             unsigned int help= (img->data[hw*wide+cw]<<16);
             int grün = help >> 24;
@@ -88,5 +87,6 @@ void image_write_to_file(struct image* img, FILE* f)
         }
         fprintf (f, "\n");
         hw++;
+        cw = 0;
     }
 }
