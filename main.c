@@ -22,7 +22,19 @@ int main(int argc, char **argv)
 	image_init(&img, size, size);
 
 	/* TODO: Read in the stars from the file with name argv[2] and draw them to the image. */
-	abort();
+    
+
+    // START
+    struct star s;
+    int x,y;
+    FILE* starsT = fopen(argv[2],"r");
+    while (star_read_from_file(&s,starsT)==1){
+        star_coord_to_pixel(&s,&img,&x,&y);
+        image_draw_pixel(&img,0xffffff, x, y);
+    }
+    // Finish
+
+
 
 	/* Open every constellation file. */
 	for (int i = 3; i < argc; i++) {
@@ -34,8 +46,40 @@ int main(int argc, char **argv)
 		}
 
 		/* TODO: draw the constellation */
-		abort();
 
+
+
+        //START
+        
+        int drap1=0;
+        int drap2=0;
+        while (2==(fscanf(f,"%i,%i", &drap1, &drap2))) {
+            int drap1found=0;
+            int drap1x=0;
+            int drap1y=0;
+            int drap2found=0;
+            int drap2x=0;
+            int drap2y=0;
+           FILE* starL = fopen(argv[2],"r"); 
+           //while (6==fscanf(s, "%lf %lf %lf %i %lf %i",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn))
+           struct star st;
+           while (star_read_from_file(&st,starL)==1){
+               if (drap1==(st.draper)){drap1found=1;star_coord_to_pixel(&st,&img,&drap1x,&drap1y);}; 
+               if (drap2==(st.draper)){drap2found=1;star_coord_to_pixel(&st,&img,&drap2x,&drap2y);};
+           }
+           fclose(starL);
+           if (drap1found==0)
+               printf("Drapernummer %i wurde nicht gefunden und konnte daher nicht in das Sternenbild eingetragen werden", drap1);
+           if (drap2found==0)
+               printf("Drapernummer %i wurde nicht gefunden und konnte dahern icht in das Sternenbild eingetragen werden",drap2);
+
+           if ((drap1found==1)|(drap2found==1)){
+               image_draw_line(&img,0x00ff00,drap1x,drap1y,drap2x,drap2y);
+           }
+        }
+        
+        //Finish
+        
 		fclose(f);
 	}
 
