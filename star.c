@@ -9,7 +9,8 @@ int star_read_from_file(struct star* s, FILE* f)
     
     double xcord, ycord, zcord, mag;
     int drapnr, hrn;
-	if (6==fscanf(f, "%lf %lf %lf %i %lf %i\n",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn)){
+    int reads=fscanf(f, "%lf %lf %lf %i %lf %i",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn);
+	if (6==reads){
         // ggf. abfangen wenn coordinaten >1
         s->x = xcord;
         s->y = ycord;
@@ -17,8 +18,24 @@ int star_read_from_file(struct star* s, FILE* f)
         s->draper=drapnr;
         return 1;
     }
-    else
+    else {
+        if (ferror(f)){
+            perror("fscanf matching failure");
+            exit(1);
+        }
         return 0;
+    }
+    
+    
+    
+    /* alte schleife
+    else {
+        if (reads==EOF) return 0;
+        fprintf(stderr, "error reading file - wrong format!\n");
+        exit(1);
+    }*/
+
+
 /*
     double xcord, ycord, zcord, mag;
     int drapnr, hrn;

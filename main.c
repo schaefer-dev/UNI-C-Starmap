@@ -23,8 +23,6 @@ int main(int argc, char **argv)
 
 	/* TODO: Read in the stars from the file with name argv[2] and draw them to the image. */
     
-
-    // START
     struct star s;
     int x,y;
     FILE* starsT = fopen(argv[2],"r");
@@ -32,9 +30,8 @@ int main(int argc, char **argv)
         star_coord_to_pixel(&s,&img,&x,&y);
         image_draw_pixel(&img,0xffffff, x, y);
     }
+    fclose(starsT);
     // Finish
-
-
 
 	/* Open every constellation file. */
 	for (int i = 3; i < argc; i++) {
@@ -47,10 +44,6 @@ int main(int argc, char **argv)
 
 		/* TODO: draw the constellation */
 
-
-
-        //START
-        
         int drap1=0;
         int drap2=0;
         while (2==(fscanf(f,"%i,%i", &drap1, &drap2))) {
@@ -77,9 +70,7 @@ int main(int argc, char **argv)
                image_draw_line(&img,0x00ff00,drap1x,drap1y,drap2x,drap2y);
            }
         }
-        
         //Finish
-        
 		fclose(f);
 	}
 
