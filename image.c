@@ -13,7 +13,6 @@ void image_init(struct image* img, int w, int h)
 
 void image_draw_pixel(struct image* img, int color, int x, int y)
 {
-    // abbrechen für >1 und <-1 und nicht zeichnen	
     int wide = (img->w);
     int hight = (img->h);
     if (x<=wide) {        // hier ggf Ränder falsch
@@ -21,9 +20,9 @@ void image_draw_pixel(struct image* img, int color, int x, int y)
             int num = wide*y+x;
             (img->data[num])=color;
         }
-        else printf("y-koordinate %i > maximale Höhe %i", y, hight); // print weg?
+        else fprintf(stderr,"y-koordinate %i > maximale Höhe %i\n", y, hight); // print weg?
     }
-    else printf("x-koordinate %i > maximale Weite %i", x, wide); // print weg?
+    else fprintf(stderr,"x-koordinate %i > maximale Weite %i\n", x, wide); // print weg?
 }
 
 /*
@@ -80,8 +79,6 @@ void image_write_to_file(struct image* img, FILE* f)
             int grün = help >> 24;
             help = (img->data[hw*wide+cw]<<24);
             int blau = help >> 24;
-            //int grün=((unsigned int)((img->data[hw*wide+cw])<<8)>>24);
-            //int blau=((unsigned int)((img->data[hw*wide+cw])<<16)>>16);
             fprintf (f,"%i %i %i ", rot,grün,blau);
             cw++;
         }

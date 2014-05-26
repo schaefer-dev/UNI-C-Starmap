@@ -17,23 +17,22 @@ int star_read_from_file(struct star* s, FILE* f)
         s->magnitude = mag;
         s->draper=drapnr;
         return 1;
-    }
+    }/*
     else {
         if (ferror(f)){
-            perror("fscanf matching failure");
+            fprintf(stderr,"fscanf matching failure");
             exit(1);
         }
         return 0;
-    }
+    }*/
     
     
     
-    /* alte schleife
     else {
         if (reads==EOF) return 0;
         fprintf(stderr, "error reading file - wrong format!\n");
         exit(1);
-    }*/
+    }
 
 
 /*
@@ -77,6 +76,6 @@ void star_plot(struct star const* s, struct image* img)
         if (x<=wide)
             {int num=wide*y+x;
             (img->data[num])=0xffffff;}
-        else printf("x koordinate %i > maximale Weite %i", x, wide);
-    else printf("y koordinate %i > maximale Höhe %i", y, wide);
+        else fprintf(stderr,"x koordinate %i > maximale Weite %i\n", x, wide);
+    else fprintf(stderr,"y koordinate %i > maximale Höhe %i\n", y, wide);
 }
