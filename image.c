@@ -20,9 +20,9 @@ void image_draw_pixel(struct image* img, int color, int x, int y)
             int num = wide*y+x;
             (img->data[num])=color;
         }
-        else fprintf(stderr,"y-koordinate %i > maximale Höhe %i\n", y, hight); // print weg?
+        else fprintf(stderr,"Warnung: y-koordinate %i > maximale Höhe %i, daher nicht eingezeichnet\n", y, hight); // print weg?
     }
-    else fprintf(stderr,"x-koordinate %i > maximale Weite %i\n", x, wide); // print weg?
+    else fprintf(stderr,"Warnung: x-koordinate %i > maximale Weite %i, daher nicht eingezeichnet\n", x, wide); // print weg?
 }
 
 /*

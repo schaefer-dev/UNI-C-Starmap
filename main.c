@@ -62,9 +62,9 @@ int main(int argc, char **argv)
            }
            fclose(starL);
            if (drap1found==0)
-               printf("Drapernummer %i wurde nicht gefunden und konnte daher nicht in das Sternenbild eingetragen werden\n", drap1);
+               printf("Warnung: Drapernummer %i wurde nicht gefunden und konnte daher nicht in das Sternenbild eingetragen werden\n", drap1);
            if (drap2found==0)
-               printf("Drapernummer %i wurde nicht gefunden und konnte dahern icht in das Sternenbild eingetragen werden\n",drap2);
+               printf("Warnung: Drapernummer %i wurde nicht gefunden und konnte dahern icht in das Sternenbild eingetragen werden\n",drap2);
 
            if ((drap1found==1)|(drap2found==1)){
                image_draw_line(&img,0x00ff00,drap1x,drap1y,drap2x,drap2y);

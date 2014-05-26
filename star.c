@@ -76,6 +76,6 @@ void star_plot(struct star const* s, struct image* img)
         if (x<=wide)
             {int num=wide*y+x;
             (img->data[num])=0xffffff;}
-        else fprintf(stderr,"x koordinate %i > maximale Weite %i\n", x, wide);
-    else fprintf(stderr,"y koordinate %i > maximale Höhe %i\n", y, wide);
+        else fprintf(stderr,"Warnung: x koordinate %i > maximale Weite %i, daher nicht eingezeichnet\n", x, wide);
+    else fprintf(stderr,"Warnung: y koordinate %i > maximale Höhe %i, daher nicht eingezeichnet\n", y, wide);
 }
