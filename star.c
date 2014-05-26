@@ -17,31 +17,33 @@ int star_read_from_file(struct star* s, FILE* f)
         s->magnitude = mag;
         s->draper=drapnr;
         return 1;
-    }/*
-    else {
+    }
+    else 
+    
+    /*{
         if (ferror(f)){
             fprintf(stderr,"fscanf matching failure");
             exit(1);
-        }
+        }*/
         return 0;
-    }*/
+    }
     
     
-    
+    /*
     else {
         if (reads==EOF) return 0;
         fprintf(stderr, "error reading file - wrong format!\n");
         exit(1);
-    }
+    }*/
 
 
 /*
     double xcord, ycord, zcord, mag;
     int drapnr, hrn;
-    char string;
-    if (fgets(&string, 200,f)==NULL){return 0;}
+    char string[sizeof(string)];
+    if (fgets(&string, sizeof(string),f)==NULL){return 0;}
     else {
-    	if (6==scanf(&string, "%lf %lf %lf %i %lf %i\n",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn)){
+    	if (6==scanf(string, "%lf %lf %lf %i %lf %i\n",&xcord,&ycord,&zcord,&drapnr,&mag,&hrn)){
         s->x = xcord;
         s->y = ycord;
         s->magnitude = mag;
