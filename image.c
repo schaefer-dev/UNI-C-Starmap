@@ -15,14 +15,12 @@ void image_draw_pixel(struct image* img, int color, int x, int y)
 {
     int wide = (img->w);
     int hight = (img->h);
-    if (x<=wide) {        // hier ggf Ränder falsch
+    if (x<=wide) {        
         if (y<=hight){
             int num = wide*y+x;
             (img->data[num])=color;
         }
-        else fprintf(stderr,"Warnung: y-koordinate %i > maximale Höhe %i, daher nicht eingezeichnet\n", y, hight); // print weg?
     }
-    else fprintf(stderr,"Warnung: x-koordinate %i > maximale Weite %i, daher nicht eingezeichnet\n", x, wide); // print weg?
 }
 
 /*
@@ -74,7 +72,7 @@ void image_write_to_file(struct image* img, FILE* f)
     fprintf(f,"P3\n%i %i\n255\n", wide, hight);
     while (hw<hight){
         while (cw<wide){
-            int rot=((img->data[hw*wide+cw])>>16);   // farbwerte aus 3er Hex ziehen
+            int rot=((img->data[hw*wide+cw])>>16);   
             unsigned int help= (img->data[hw*wide+cw]<<16);
             int grün = help >> 24;
             help = (img->data[hw*wide+cw]<<24);
